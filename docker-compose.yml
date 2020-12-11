@@ -1,0 +1,22 @@
+backend:
+    image: gridgain/gridgain-web-console-backend:2020.11.00
+    # Restart on crash.
+    restart: always
+    environment:
+      # Mail settings
+      #- SPRING_MAIL_HOST=
+      #- SPRING_MAIL_PORT=
+      #- SPRING_MAIL_USERNAME=
+      #- SPRING_MAIL_PASSWORD=
+      - JVM_OPTS=
+
+    volumes:
+      - /tmp/gridgain/work:/opt/gridgain-web-console-server/work
+
+frontend:
+    image: gridgain/gridgain-web-console-frontend:2020.11.00
+    ports:
+      # Proxy HTTP nginx port (HOST_PORT:DOCKER_PORT)
+      - 9080:8008
+    depends_on:
+      - backend
