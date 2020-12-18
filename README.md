@@ -34,8 +34,13 @@ docker run -d -it --name console_backend  -v /tmp/gridgain/work:/opt/gridgain-we
 docker run -d --name=console_frontend -p 9080:8008/tcp --link console_backend:backend gridgain/gridgain-web-console-frontend
 ./web-console-agent.sh 
 ```
+- Use the configuration tab to create a new cluster configuration and import from database
+![ignite cache config](ignite_cache_config.png)
+- Change all the generated caches to use the same schema name (e.g. jberet)
+![ignite schema](ignite_cache_schema.png)
+
+
 ### Modify the generated [java project](https://github.com/awiradarma/gridgain/tree/main/JBeretCluster)
-- Change all the generated caches to be using the same schema (jberet)
 - Create [custom SQL function](https://github.com/awiradarma/gridgain/blob/main/JBeretCluster/src/main/java/config/SQLFunction.java) to generate sequence number and [initialized after the caches are loaded](https://github.com/awiradarma/gridgain/blob/main/JBeretCluster/src/main/java/startup/ServerNodeCodeStartup.java#L30)
 - Modify the jberet's [JDBC repository](https://github.com/awiradarma/jsr352/blob/apache_ignite_write_through/jberet-core/src/main/java/org/jberet/repository/JdbcRepository.java#L316) and [SQL statements](https://github.com/awiradarma/jsr352/blob/apache_ignite_write_through/jberet-core/src/main/resources/sql/jberet-sql.properties#L5) to leverage Ignite's AtomicSequenceNumber via custom SQL function
 
@@ -43,6 +48,8 @@ docker run -d --name=console_frontend -p 9080:8008/tcp --link console_backend:ba
 ```
 java -cp ./target/JberetCluster-project-8.7.9.jar:./target/libs/* startup.ServerNodeCodeStartup 
 ```
+- You should be able to quary the table using the web console as well
+![ignite query](ignite_sql_query_web_console.png)
 
 ### Make changes to the jberet.properties in the batch-runner repo and rerun the sample batch job
 ```
@@ -51,3 +58,7 @@ java -cp ./target/batch-runner-1.0-SNAPSHOT.jar:../jberet-distribution-1.4.0.Fin
 
 ### Final set up
 ![jberet with ignite write through cache](jberet-ignite-console.png)
+
+
+### Number of cache entries can also be monitored via web console
+![cache web console](ignite_cache_web_console.png)
