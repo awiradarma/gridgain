@@ -2,13 +2,13 @@
 
 ### Use jberet with a mysql backend
 ![jberet and mysql backend](jberet.png)
-. Start mysql database
-. Configure jberet.properties in the [batch-runner](https://github.com/awiradarma/batch-runner) repo to use mysql 
-. Run the sample batch job
+- Start mysql database
+- Configure jberet.properties in the [batch-runner](https://github.com/awiradarma/batch-runner) repo to use mysql 
+- Run the sample batch job
 ```
 java -cp ./target/batch-runner-1.0-SNAPSHOT.jar:../jberet-distribution-1.4.0.Final/lib/*:./target/libs/* test.andre.BatchRunner sampleJob
 ```
-. Make sure the tables are created
+- Make sure the tables are created
 ```
 mysql> show tables;
 +---------------------+
