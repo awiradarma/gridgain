@@ -25,6 +25,7 @@ mysql>
 ```
 
 ### Use Gridgain web console to create a mapping of the jberet database schema 
+- The web-console-agent should be downloaded from the web console, and its default properties modified to point to the web console frontend
 ```
 mkdir /tmp/gridgain
 mkdir /tmp/gridgain/work
@@ -48,7 +49,7 @@ docker run -d --name=console_frontend -p 9080:8008/tcp --link console_backend:ba
 ```
 java -cp ./target/JberetCluster-project-8.7.9.jar:./target/libs/* startup.ServerNodeCodeStartup 
 ```
-- You should be able to quary the table using the web console as well
+- You should be able to query the table using the web console as well
 ![ignite query](ignite_sql_query_web_console.png)
 
 ### Make changes to the jberet.properties in the batch-runner repo and rerun the sample batch job
